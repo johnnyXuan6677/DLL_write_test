@@ -1,19 +1,22 @@
+
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
+// MathClient.cpp : Client app for MathLibrary DLL.
+// #include "pch.h" Uncomment for Visual Studio 2017 and earlier
+#include <iostream>
+#include "MathLibrary.h"
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
+int main()
 {
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
+    // Initialize a Fibonacci relation sequence.
+    fibonacci_init(1, 1);
+    // Write out the sequence values until overflow.
+    do {
+        std::cout << fibonacci_index() << ": "
+            << fibonacci_current() << std::endl;
+    } while (fibonacci_next());
+    // Report count of values written before overflow.
+    std::cout << fibonacci_index() + 1 <<
+        " Fibonacci sequence values fit in an " <<
+        "unsigned 64-bit integer." << std::endl;
 }
-
